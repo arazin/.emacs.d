@@ -16,10 +16,10 @@
 (setq default-coding-systems 'utf-8)
 (setq file-name-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
- 
+
 ;; default to better frame titles
 (setq frame-title-format
-(concat "%b - emacs@" (system-name)))
+			(concat "%b - emacs@" (system-name)))
 
 
 ;;;----------------------------------------------
@@ -33,11 +33,11 @@
 
 
 (setq load-path
-(append (list 
-(expand-file-name "~/Dropbox/elisp/")
-;; ここの""のなかにパスを設定できる
-)
-load-path))
+			(append (list 
+							 (expand-file-name "~/Dropbox/elisp/")
+							 ;; ここの""のなかにパスを設定できる
+							 )
+							load-path))
 
 ;; .editorconfigで editorの設定共有
 (load "editorconfig")
@@ -48,8 +48,8 @@ load-path))
 
 ;;デフォルトの透明度を設定する
 (add-to-list 'default-frame-alist '(alpha . 95))
- 
- 
+
+
 ;; tab 幅を 2 に設定
 (setq-default tab-width 2)
 
@@ -66,11 +66,11 @@ load-path))
 ;;オートセーブ
 (require 'auto-save-buffers)
 (run-with-idle-timer 1 t 'auto-save-buffers)
- 
+
 
 ;; 対応する括弧を光らせる
 (show-paren-mode 1)
- 
+
 ;; １行ずつスクロールさせる
 (setq scroll-step 1)
 
@@ -82,7 +82,7 @@ load-path))
 (setq visible-bell t)
 ;;; 何もおこらなくする
 (setq ring-bell-function '(lambda ()))
- 
+
 ;;; バックアップファイルを作らない
 (setq backup-inhibited t)
 
@@ -95,104 +95,104 @@ load-path))
 
 ;; フレームサイズの設定
 (setq default-frame-alist
-(append (list
-'(width . 90)
-'(height . 100)
-'(top . 100)
-'(left . 900)
-)
-default-frame-alist))
- 
+			(append (list
+							 '(width . 90)
+							 '(height . 100)
+							 '(top . 100)
+							 '(left . 900)
+							 )
+							default-frame-alist))
+
 ;;smart-compileの実装
 (require 'smart-compile)
 (global-set-key "\C-cc" 'smart-compile)
 (define-key menu-bar-tools-menu [compile] '("Compile ... " . smart-compile))
- 
+
 ;;shell-pop.el
 (require 'shell-pop)
 (shell-pop-set-internal-mode "ansi-term")
 (shell-pop-set-internal-mode-shell "/bin/bash")
 (defvar ansi-term-after-hook nil)
 (add-hook 'ansi-term-after-hook
-(function
-(lambda ()
-(define-key term-raw-map "\C-t" 'shell-pop))))
+					(function
+					 (lambda ()
+						 (define-key term-raw-map "\C-t" 'shell-pop))))
 (defadvice ansi-term (after ansi-term-after-advice (arg))
-"run hook as after advice"
-(run-hooks 'ansi-term-after-hook))
+	"run hook as after advice"
+	(run-hooks 'ansi-term-after-hook))
 (ad-activate 'ansi-term)
- 
+
 (global-set-key "\C-t" 'shell-pop)
 
 ;; カラーテーマの設定
 
 
-;(require 'color-theme)
-;(color-theme-initialize)
-;(color-theme-salmon-diff)
+																				;(require 'color-theme)
+																				;(color-theme-initialize)
+																				;(color-theme-salmon-diff)
 (defun my-color-theme ()
-(interactive)
-(color-theme-install
-'(my-color-theme
-((background-color . "#000C00")
-(foreground-color . "#D3D3D3")
-(background-mode . dark)
-(border-color . "#323232")
-(cursor-color . "#FFA500")
-(mouse-color . "#323232"))
- 
-(mode-line ((t (:foreground "#FFFFFF" :background "#323232"))))
-;; (region ((t (:background "#323232"))))
-(region ((t (:background "#767676"))))
- 
-(font-lock-comment-face ((t (:foreground "#FF6850"))))
-(font-lock-constant-face ((t (:foreground "#D28000"))))
-(font-lock-builtin-face ((t (:foreground "#CD73C9"))))
-(font-lock-function-name-face ((t (:foreground "#FF78AA"))))
-(font-lock-variable-name-face ((t (:foreground "#9F79EE"))))
-(font-lock-keyword-face ((t (:foreground "#CD1076"))))
-(font-lock-string-face ((t (:foreground "#FFC400"))))
-(font-lock-doc-string-face ((t (:foreground "#FFC400"))))
-(font-lock-type-face ((t (:foreground "#FF34B3"))))
-)))
+	(interactive)
+	(color-theme-install
+	 '(my-color-theme
+		 ((background-color . "#000C00")
+			(foreground-color . "#D3D3D3")
+			(background-mode . dark)
+			(border-color . "#323232")
+			(cursor-color . "#FFA500")
+			(mouse-color . "#323232"))
+		 
+		 (mode-line ((t (:foreground "#FFFFFF" :background "#323232"))))
+		 ;; (region ((t (:background "#323232"))))
+		 (region ((t (:background "#767676"))))
+		 
+		 (font-lock-comment-face ((t (:foreground "#FF6850"))))
+		 (font-lock-constant-face ((t (:foreground "#D28000"))))
+		 (font-lock-builtin-face ((t (:foreground "#CD73C9"))))
+		 (font-lock-function-name-face ((t (:foreground "#FF78AA"))))
+		 (font-lock-variable-name-face ((t (:foreground "#9F79EE"))))
+		 (font-lock-keyword-face ((t (:foreground "#CD1076"))))
+		 (font-lock-string-face ((t (:foreground "#FFC400"))))
+		 (font-lock-doc-string-face ((t (:foreground "#FFC400"))))
+		 (font-lock-type-face ((t (:foreground "#FF34B3"))))
+		 )))
 ;; (color-theme initialize)??
 ;; (require 'color-theme)
 ;; (my-color-theme)
 (when (not (eq (symbol-value 'window-system) 0))
-(require 'color-theme)
-(my-color-theme))
+	(require 'color-theme)
+	(my-color-theme))
 
-;auto-insert
+																				;auto-insert
 (require 'autoinsert)
- 
+
 ;; テンプレートのディレクトリ
 (setq auto-insert-directory "~/Dropbox/elisp/auto-insert")
- 
+
 ;; 各ファイルによってテンプレートを切り替える
 (setq auto-insert-alist
       (nconc '(
                ("\\.cpp$" . ["template.cpp" my-template])
                ("\\.pl$" . ["template.pl" my-template])
                ("\\.tex$" . ["template.tex" my-template])
-                                                         ("\\.gnu$" . ["template.gnu" my-template])
-                                                         ("\\.html$" . ["template.html" my-template])
-                                                         ("\\.php$" . ["template.html" my-template]) 
+							 ("\\.gnu$" . ["template.gnu" my-template])
+							 ("\\.html$" . ["template.html" my-template])
+							 ("\\.php$" . ["template.html" my-template]) 
                ) auto-insert-alist))
 (require 'cl)
- 
+
 ;; ここが腕の見せ所
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
     ("%include-guard%"    . (lambda () (format "__SCHEME_%s__" (upcase (file-name-sans-extension (file-name-nondirectory buffer-file-name))))))))
- 
+
 (defun my-template ()
   (time-stamp)
   (mapc #'(lambda(c)
-        (progn
-          (goto-char (point-min))
-          (replace-string (car c) (funcall (cdr c)) nil)))
-    template-replacements-alists)
+						(progn
+							(goto-char (point-min))
+							(replace-string (car c) (funcall (cdr c)) nil)))
+				template-replacements-alists)
   (goto-char (point-max))
   (message "done."))
 (add-hook 'find-file-not-found-hooks 'auto-insert)
@@ -203,15 +203,15 @@ default-frame-alist))
 
 ;;yatex-mode 
 (setq load-path 
-   (append '("~/Dropbox/elisp/yatex1.77") load-path)) 
+			(append '("~/Dropbox/elisp/yatex1.77") load-path)) 
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t) 
 (setq dvi2-command "evince" 
-    tex-command "platex --kanji=utf8" 
-    dviprint-command-format "dvips %s | lpr" 
-    YaTeX-kanji-code 4) 
+			tex-command "platex --kanji=utf8" 
+			dviprint-command-format "dvips %s | lpr" 
+			YaTeX-kanji-code 4) 
 ;; *.texの拡張子をもつファイルを開いた場合、自動的にyatexを起動 
 (setq auto-mode-alist 
-    (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist)) 
+			(cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist)) 
 ;; (setq dvi2-command "evince" 
 ;;       tex-command "sh ~/.platex2pdf.sh" 
 ;;     dviprint-command-format "dvips %s | lpr" 
@@ -225,17 +225,17 @@ default-frame-alist))
 (require 'flymake)
 (defun flymake-cc-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-'flymake-create-temp-inplace))
-(local-file (file-relative-name
-temp-file
-(file-name-directory buffer-file-name))))
+										 'flymake-create-temp-inplace))
+				 (local-file (file-relative-name
+											temp-file
+											(file-name-directory buffer-file-name))))
     (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
 (push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
 (push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
 (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
   (setq flymake-check-was-interrupted t))
 (ad-activate 'flymake-post-syntax-check)
- 
+
 ;; flymake popup
 (global-set-key (kbd "M-e") 'flymake-goto-next-error)
 (global-set-key (kbd "M-E") 'flymake-goto-prev-error)
@@ -278,14 +278,14 @@ temp-file
   (my/display-error-message))
 (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
 (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message)
- 
+
 ;; flymake for C/C++ 
 (add-hook 'c++-mode-hook
-'(lambda ()
-(flymake-mode t)))
+					'(lambda ()
+						 (flymake-mode t)))
 (add-hook 'c-mode-hook
-'(lambda ()
-(flymake-mode t)))
+					'(lambda ()
+						 (flymake-mode t)))
 
 
 ;; flymake for php
@@ -300,8 +300,8 @@ temp-file
 (push '("(Parse|Fatal) error: (.*) in (.*) on line ([0-9]+)" 3 4 nil 2) flymake-err-line-patterns)
 
 (add-hook 'web-mode-hook
-'(lambda ()
-(flymake-mode t)))
+					'(lambda ()
+						 (flymake-mode t)))
 
 ;;html php multi mode web-mode
 (require 'web-mode)
