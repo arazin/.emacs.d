@@ -65,7 +65,7 @@ load-path))
 
 ;;オートセーブ
 (require 'auto-save-buffers)
-(run-with-idle-timer 0.5 t 'auto-save-buffers)
+(run-with-idle-timer 1 t 'auto-save-buffers)
  
 
 ;; 対応する括弧を光らせる
