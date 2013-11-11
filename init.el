@@ -174,9 +174,9 @@ default-frame-alist))
                ("\\.cpp$" . ["template.cpp" my-template])
                ("\\.pl$" . ["template.pl" my-template])
                ("\\.tex$" . ["template.tex" my-template])
-							 ("\\.gnu$" . ["template.gnu" my-template])
-							 ("\\.html$" . ["template.html" my-template])
-							 ("\\.php$" . ["template.html" my-template]) 
+                                                         ("\\.gnu$" . ["template.gnu" my-template])
+                                                         ("\\.html$" . ["template.html" my-template])
+                                                         ("\\.php$" . ["template.html" my-template]) 
                ) auto-insert-alist))
 (require 'cl)
  
@@ -218,8 +218,8 @@ default-frame-alist))
 ;;     YaTeX-kanji-code 3)
 (setq YaTeX-dvi2-command-ext-alist
       '(("xdvi\\|dvipdmx".".dvi")
-	("ghostview\\lgv".".ps")
-	("evince" . ".pdf")))
+        ("ghostview\\lgv".".ps")
+        ("evince" . ".pdf")))
 
 ;; flymake
 (require 'flymake)
