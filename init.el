@@ -172,6 +172,7 @@
 (setq auto-insert-alist
       (nconc '(
                ("\\.cpp$" . ["template.cpp" my-template])
+							 ("\\.c$" . ["template.c" my-template])
                ("\\.pl$" . ["template.pl" my-template])
                ("\\.tex$" . ["template.tex" my-template])
 							 ("\\.gnu$" . ["template.gnu" my-template])
