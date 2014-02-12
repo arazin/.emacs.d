@@ -357,3 +357,20 @@
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode t)
  '(tab-width 2))
+
+
+;; マークダウンモード
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; 文字数表示
+(column-number-mode t)
+;; 選択範囲の情報表示
+(defun count-lines-and-chars ()
+  (if mark-active
+      (format "[%3d:%4d]"
+              (count-lines (region-beginning) (region-end))
+              (- (region-end) (region-beginning)))
+    ""))
+(add-to-list 'default-mode-line-format
+             '(:eval (count-lines-and-chars)))
+
