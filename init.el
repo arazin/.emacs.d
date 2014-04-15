@@ -35,7 +35,8 @@
 (setq load-path
 			(append (list 
 							 (expand-file-name "~/Dropbox/elisp/")
-							 ;; ここの""のなかにパスを設定できる
+							 (expand-file-name "~/Dropbox/elisp/yasnippet")
+  							 ;; ここの""のなかにパスを設定できる
 							 )
 							load-path))
 
@@ -108,6 +109,8 @@
 (global-set-key "\C-cc" 'smart-compile)
 (define-key menu-bar-tools-menu [compile] '("Compile ... " . smart-compile))
 
+(add-to-list 'smart-compile-alist '("\\.cs$"     . "gmcs %f"))
+
 ;;shell-pop.el
 (require 'shell-pop)
 (shell-pop-set-internal-mode "ansi-term")
@@ -123,7 +126,6 @@
 (ad-activate 'ansi-term)
 
 (global-set-key "\C-t" 'shell-pop)
-
 ;; カラーテーマの設定
 
 
@@ -177,7 +179,8 @@
                ("\\.tex$" . ["template.tex" my-template])
 							 ("\\.gnu$" . ["template.gnu" my-template])
 							 ("\\.html$" . ["template.html" my-template])
-							 ("\\.php$" . ["template.html" my-template]) 
+							 ("\\.php$" . ["template.html" my-template])
+							 ("\\.cs$" . ["template.cs" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
@@ -373,4 +376,31 @@
     ""))
 (add-to-list 'default-mode-line-format
              '(:eval (count-lines-and-chars)))
+
+
+
+;;csharp-mode
+(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
+(setq auto-mode-alist
+			(append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
+
+(defvar my-csharp-default-compiler nil)
+(setq my-csharp-default-compiler "mono @@FILE@@")
+(require 'yasnippet)
+(defun my-csharp-mode-fn ()
+	"function that runs when csharp-mode is initialized for a buffer."
+	(turn-on-auto-revert-mode)
+	(setq indent-tabs-mode nil)
+	;; (require 'flymake)
+	;; (flymake-mode 1)
+	(require 'yasnippet)
+	(yas/minor-mode-on)
+	;; (require 'rfringe)
+	(c-set-offset 'substatement-open 0)
+	(c-set-offset 'case-label '+)
+	(c-set-offset 'arglist-intro '+)
+	(c-set-offset 'arglist-close 0)
+  )
+(add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
+
 
