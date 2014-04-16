@@ -33,7 +33,8 @@
 
 
 (setq load-path
-			(append (list 
+			(append (list
+							 (expand-file-name "~/.emacs.d")
 							 (expand-file-name "~/Dropbox/elisp/")
 							 (expand-file-name "~/Dropbox/elisp/yasnippet")
   							 ;; ここの""のなかにパスを設定できる
@@ -402,5 +403,10 @@
 	(c-set-offset 'arglist-close 0)
   )
 (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
+
+;;auto-complete
+;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+(require 'auto-complete-config)
+(ac-config-default)
 
 
