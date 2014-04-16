@@ -394,8 +394,8 @@
 	(setq indent-tabs-mode nil)
 	;; (require 'flymake)
 	;; (flymake-mode 1)
-	(require 'yasnippet)
-	(yas/minor-mode-on)
+	;; (require 'yasnippet)
+	;; (yas/minor-mode-on)
 	;; (require 'rfringe)
 	(c-set-offset 'substatement-open 0)
 	(c-set-offset 'case-label '+)
@@ -408,5 +408,7 @@
 ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
 (ac-config-default)
-
+(setq ac-modes
+  (append ac-modes
+    (list 'csharp-mode)))
 
