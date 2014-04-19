@@ -34,7 +34,7 @@
 
 (setq load-path
 			(append (list
-							 (expand-file-name "~/.emacs.d")
+							 ;; (expand-file-name "~/.emacs.d")
 							 (expand-file-name "~/Dropbox/elisp/")
 							 (expand-file-name "~/Dropbox/elisp/yasnippet")
   							 ;; ここの""のなかにパスを設定できる
@@ -49,7 +49,7 @@
 (global-set-key "\C-j" 'newline)
 
 ;;デフォルトの透明度を設定する
-(add-to-list 'default-frame-alist '(alpha . 95))
+(add-to-list 'default-frame-alist '(alpha . 90))
 
 
 ;; tab 幅を 2 に設定
@@ -392,8 +392,8 @@
 	"function that runs when csharp-mode is initialized for a buffer."
 	(turn-on-auto-revert-mode)
 	(setq indent-tabs-mode nil)
-	;; (require 'flymake)
-	;; (flymake-mode 1)
+	(require 'flymake)
+	(flymake-mode 1)
 	;; (require 'yasnippet)
 	;; (yas/minor-mode-on)
 	;; (require 'rfringe)
@@ -412,3 +412,10 @@
   (append ac-modes
     (list 'csharp-mode)))
 
+
+;; diredを2つのウィンドウで開いている時に、デフォルトの移動orコピー先をもう一方のdiredで開いているディレクトリにする
+(setq dired-dwim-target t)
+;; ディレクトリを再帰的にコピーする
+(setq dired-recursive-copies 'always)
+;; diredバッファでC-sした時にファイル名だけにマッチするように
+(setq dired-isearch-filenames t)
