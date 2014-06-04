@@ -105,6 +105,10 @@
 							 )
 							default-frame-alist))
 
+;; ;; 全画面表示
+;; (setq ns-use-native-fullscreen nil)
+;; (define-key global-map (kbd "M-RET") 'toggle-frame-fullscreen)
+
 ;;smart-compileの実装
 (require 'smart-compile)
 (global-set-key "\C-cc" 'smart-compile)
