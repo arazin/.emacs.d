@@ -115,6 +115,7 @@
 (define-key menu-bar-tools-menu [compile] '("Compile ... " . smart-compile))
 
 (add-to-list 'smart-compile-alist '("\\.cs$"     . "gmcs %f"))
+(add-to-list 'smart-compile-alist '("\\.[Cc]+[Pp]*\\'" . "g++ -O2 -std=c++11 %f -lm -o %n"))
 
 ;;shell-pop.el
 (require 'shell-pop)
@@ -238,7 +239,7 @@
 				 (local-file (file-relative-name
 											temp-file
 											(file-name-directory buffer-file-name))))
-    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" "-stf=c++11" local-file))))
 (push '("\\.cpp$" flymake-cc-init) flymake-allowed-file-name-masks)
 (push '("\\.c$" flymake-cc-init) flymake-allowed-file-name-masks)
 (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
@@ -423,3 +424,15 @@
 (setq dired-recursive-copies 'always)
 ;; diredバッファでC-sした時にファイル名だけにマッチするように
 (setq dired-isearch-filenames t)
+
+;; smartparens
+(require 'smartparens-config)
+(smartparens-global-mode t)
+(show-smartparens-global-mode t)
+(smartparens-mode t)
+(smartparens-strict-mode t)
+
+;; python-mode
+(setq auto-mode-alist
+      (cons '("\\.py$" . python-mode) auto-mode-alist))
+
