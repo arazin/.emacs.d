@@ -67,7 +67,7 @@
 
 ;;オートセーブ
 (require 'auto-save-buffers)
-(run-with-idle-timer 1 t 'auto-save-buffers)
+(run-with-idle-timer 0.5 t 'auto-save-buffers)
 
 
 ;; 対応する括弧を光らせる
@@ -237,6 +237,7 @@
 ;; flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (require 'flycheck)
+(setq flycheck-highlighting-mode 'columns)
 (flycheck-define-checker c/c++
   "A C/C++ checker using g++."
   :command ("g++" "-Wall" "-Wextra" "-std=c++11" "-fsyntax-only" source)
